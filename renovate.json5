@@ -1,53 +1,55 @@
 {
-  "extends": [
-    "config:base",
-    ":rebaseStalePrs",
-    ":enableVulnerabilityAlerts",
-    ":enableVulnerabilityAlertsWithLabel(vulnerable)"
+  extends: [
+    'config:recommended',
+    ':rebaseStalePrs',
+    ':enableVulnerabilityAlerts',
+    ':enableVulnerabilityAlertsWithLabel(vulnerable)',
   ],
-  "ignorePresets": [":prHourlyLimit2"],
-  "branchPrefix": "renovate-",
-  "packageRules": [
-    {
-      "matchFileNames": [
-        "targets/dev.yaml"
-      ],
-      "additionalBranchPrefix": "targetdev-",
-      "commitMessageSuffix": "(target dev)"
-    },
-    {
-      "matchFileNames": [
-        "targets/prod.yaml"
-      ],
-      "additionalBranchPrefix": "targetprod-",
-      "commitMessageSuffix": "(target prod)"
-    },
-    {
-      "matchFileNames": [
-        "dev.yaml"
-      ],
-      "additionalBranchPrefix": "dev-",
-      "commitMessageSuffix": "(dev)"
-    },
-    {
-      "matchFileNames": [
-        "prod.yaml"
-      ],
-      "additionalBranchPrefix": "prod-",
-      "commitMessageSuffix": "(prod)"
-    }
+  ignorePresets: [
+    ':prHourlyLimit2',
   ],
-  "customManagers": [
+  branchPrefix: 'renovate-',
+  packageRules: [
+    {
+      matchFileNames: [
+        'targets/dev.yaml',
+      ],
+      additionalBranchPrefix: 'targetdev-',
+      commitMessageSuffix: '(target dev)',
+    },
+    {
+      matchFileNames: [
+        'targets/prod.yaml',
+      ],
+      additionalBranchPrefix: 'targetprod-',
+      commitMessageSuffix: '(target prod)',
+    },
+    {
+      matchFileNames: [
+        'dev.yaml',
+      ],
+      additionalBranchPrefix: 'dev-',
+      commitMessageSuffix: '(dev)',
+    },
+    {
+      matchFileNames: [
+        'prod.yaml',
+      ],
+      additionalBranchPrefix: 'prod-',
+      commitMessageSuffix: '(prod)',
+    },
+  ],
+  customManagers: [
     {
       customType: 'regex',
-      fileMatch: [
-        '\\.ya?ml$',
+      managerFilePatterns: [
+        '/\\.ya?ml$/',
       ],
       matchStrings: [
         '#\\s*renovate:\\s+datasource=(?<datasource>helm)\\s+registry=(?<registryUrl>.*)\\s+depName=(?<depName>.+)\\s+version:\\s+"?(?<currentValue>v?[\\d\\.]+)(-.+)?"?',
         '#\\s*renovate:\\s+datasource=(?<datasource>helm)\\s+registry=(?<registryUrl>.*)\\s+depName=(?<depName>.+)\\s+\\w+_version:\\s+"?(?<currentValue>v?[\\d\\.]+)(-.+)?"?',
       ],
       datasourceTemplate: 'helm',
-    }
-  ]
+    },
+  ],
 }
