@@ -10,6 +10,20 @@
   "packageRules": [
     {
       "matchFileNames": [
+        "targets/dev.yaml"
+      ],
+      "additionalBranchPrefix": "targetdev-",
+      "commitMessageSuffix": "(target dev)"
+    },
+    {
+      "matchFileNames": [
+        "targets/prod.yaml"
+      ],
+      "additionalBranchPrefix": "targetprod-",
+      "commitMessageSuffix": "(target prod)"
+    },
+    {
+      "matchFileNames": [
         "dev.yaml"
       ],
       "additionalBranchPrefix": "dev-",
