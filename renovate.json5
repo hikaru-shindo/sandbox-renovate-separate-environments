@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "config:base",
+    ":rebaseStalePrs",
+    ":enableVulnerabilityAlerts",
+    ":enableVulnerabilityAlertsWithLabel(vulnerable)"
+  ],
+  "ignorePresets": [":prHourlyLimit2"],
+  "prHourlyLimit": 5,
+  "packageRules": [
+    {
+      "matchFileNames": [
+        "dev.yaml"
+      ],
+      "additionalBranchPrefix": "dev-",
+      "commitMessageSuffix": "(dev)"
+    },
+    {
+      "matchFileNames": [
+        "prod.yaml"
+      ],
+      "additionalBranchPrefix": "prod-",
+      "commitMessageSuffix": "(prod)"
+    }
+  ],
+  "customManagers": [
+    {
+      customType: 'regex',
+      fileMatch: [
+        '\\.ya?ml$',
+      ],
+      matchStrings: [
+        '#\\s*renovate:\\s+datasource=(?<datasource>helm)\\s+registry=(?<registryUrl>.*)\\s+depName=(?<depName>.+)\\s+version:\\s+"?(?<currentValue>v?[\\d\\.]+)(-.+)?"?',
+        '#\\s*renovate:\\s+datasource=(?<datasource>helm)\\s+registry=(?<registryUrl>.*)\\s+depName=(?<depName>.+)\\s+\\w+_version:\\s+"?(?<currentValue>v?[\\d\\.]+)(-.+)?"?',
+      ],
+      datasourceTemplate: 'helm',
+    }
+  ]
+}
